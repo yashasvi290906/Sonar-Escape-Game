@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b5rf51p21r0v7"]
+
+[ext_resource type="Script" uid="uid://wuxqqk6pnbwj" path="res://scenes/treasure.gd" id="1_h85lg"]
+[ext_resource type="Texture2D" uid="uid://hidxk5bmlkri" path="res://shipwreck-golden-jewelry-wealth-trunk-jewels-fortune-diamond-sunken-pirate-treasure-chest-gold-sea-coins-rich-money-finance-311538155.webp" id="2_2unnm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nxtc6"]
+
+[node name="Treasure" type="Area2D" unique_id=691059202]
+script = ExtResource("1_h85lg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1855488044]
+position = Vector2(10, -10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2unnm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2067695141]
+shape = SubResource("CircleShape2D_nxtc6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

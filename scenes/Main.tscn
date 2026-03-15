@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bvwas78jwhghk"]
+
+[ext_resource type="PackedScene" uid="uid://dlmdxww76cmj7" path="res://scenes/player.tscn" id="1_elqb8"]
+[ext_resource type="Script" uid="uid://cvodg8cmsnm87" path="res://scenes/main.gd" id="1_nxtc6"]
+[ext_resource type="Texture2D" uid="uid://caikhut8qm076" path="res://the-blue-underwater-sea-with-ai-generated-free-photo.jpg" id="1_rvslj"]
+[ext_resource type="Texture2D" uid="uid://bt24v7jxgddqs" path="res://istockphoto-1452650201-1024x1024.jpg" id="3_0bbpv"]
+[ext_resource type="Script" uid="uid://c0xkyd1rit24i" path="res://scenes/bomb.gd" id="3_rarhs"]
+[ext_resource type="PackedScene" uid="uid://b5rf51p21r0v7" path="res://treasure.tscn" id="6_c01mt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rarhs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvslj"]
+size = Vector2(1000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bbpv"]
+size = Vector2(1000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rarhs"]
+size = Vector2(40, 800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elqb8"]
+size = Vector2(40, 800)
+
+[node name="Main" type="Node2D" unique_id=2135803015]
+position = Vector2(3, -2)
+script = ExtResource("1_nxtc6")
+
+[node name="OceanBackground" type="Sprite2D" parent="." unique_id=155441357]
+z_index = -1
+texture = ExtResource("1_rvslj")
+
+[node name="Player" parent="." unique_id=759035025 instance=ExtResource("1_elqb8")]
+position = Vector2(171, 219)
+up_direction = Vector2(0.003333315, 0.99999446)
+
+[node name="Bomb" type="Area2D" parent="." unique_id=1424299368]
+script = ExtResource("3_rarhs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bomb" unique_id=2049416771]
+shape = SubResource("CircleShape2D_rarhs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bomb" unique_id=1825912630]
+position = Vector2(10, 10)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_0bbpv")
+
+[node name="TopWall" type="StaticBody2D" parent="." unique_id=777738288]
+constant_linear_velocity = Vector2(0, -300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall" unique_id=989982589]
+shape = SubResource("RectangleShape2D_rvslj")
+
+[node name="BottomWall" type="StaticBody2D" parent="." unique_id=1142244506]
+constant_linear_velocity = Vector2(0, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall" unique_id=243990427]
+shape = SubResource("RectangleShape2D_0bbpv")
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=2095132782]
+constant_linear_velocity = Vector2(-400, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1468559386]
+shape = SubResource("RectangleShape2D_rarhs")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=1636409016]
+constant_linear_velocity = Vector2(400, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1121004934]
+position = Vector2(637, 225)
+shape = SubResource("RectangleShape2D_elqb8")
+
+[node name="Treasure" parent="." unique_id=691059202 instance=ExtResource("6_c01mt")]
+
+[connection signal="body_entered" from="Bomb" to="Player" method="_on_body_entered"]
